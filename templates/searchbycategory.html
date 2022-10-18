@@ -1,0 +1,127 @@
+{% extends 'bootstrap.html' %}
+{% block content %}
+
+<script type="text/javascript">
+	function validation()
+	{
+		var alpha=/^[A-Z a-z]+$/;
+		var num=/^[0-9]+$/;
+		
+		
+		var price=document.getElementById('price')
+		var category=document.getElementById("category")
+		if(price.value.length==0)
+			{
+			alert("Enter valid price")
+			return false;
+			}
+		else if(category.value.length==0)
+			{
+			alert("Enter valid category")
+			address.focus();
+			return false;
+			}
+		else
+			{
+			return true;
+			}}
+</script>
+
+<form method='post' action='{% url 'searchcategoryAction' %}'>
+		{% csrf_token %}
+
+		<div class="container mt-5">
+  	 	 <div class="row d-flex justify-content-center">
+    	  	  <div class="col-md-6">
+    	   	    <div class="card px-5 py-5" id="form1">
+        	        <div class="form-data" v-if="!submitted">
+     	 	              <div class="forms-inputs mb-4 text-center"> <span><h2>Search By Category</h2></span>
+                        
+                    </div>
+                   
+			<div class="form-floating mb-3">
+  	<input type="text" name='price' id='price' class="form-control" id="floatingInput" placeholder="name@example.com">
+  	<label for="floatingInput">Product Price</label>
+		</div>
+
+		<div class="form-floating mb-3">
+  	
+	<select name='category' id='category' class="form-control">
+			<option value="">--select--</option>
+			{% for v in category %}
+				<option value="{{v.id}}">{{v.category_name}}</option>
+			{% endfor %}
+			</select>
+  		<label for="floatingInput">Product Category</label>
+		</div>
+                   
+			<div class="mb-3  text-center"><button type="submit" value='search' onclick="return validation()" class="btn btn-primary btn-rounded">Search</button></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+<html>
+<script type="text/javascript">
+	function validation()
+	{
+		var alpha=/^[A-Z a-z]+$/;
+		var num=/^[0-9]+$/;
+		
+		var category=document.getElementById("category")
+		var price=document.getElementById('price')
+		if(category.value.length==0)
+			{
+			alert("Enter valid category")
+			return false;
+			}
+		else if(price.value.length==0)
+			{
+			alert("Enter valid price")
+			address.focus();
+			return false;
+			}
+		else
+			{
+			return true;
+			}}
+</script>
+		
+	<body>
+	<form method='post' action="{% url 'searchcategoryAction' %}">
+		{% csrf_token %}
+			<table>
+			<tr>
+			<td>Category Name</td>
+			<td><select name='category' id='category'>
+			<option value="">--select--</option>
+			{% for v in category %}
+				<option value="{{v.id}}">{{v.category_name}}</option>
+			{% endfor %}
+			</select>
+			</td>
+			</tr>
+			<tr>
+			<td>Price</td>
+			<td><input  type='text' name='price' id='price'></td>
+			</tr>
+			<tr>
+			<td></td>
+			<td><input type='submit' value='search' onclick="return validation()"></td>
+			</tr>
+			</table>
+	</form>
+	</body>
+</html>

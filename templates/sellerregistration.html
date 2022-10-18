@@ -1,0 +1,397 @@
+{% extends 'bootstrap.html' %}
+
+{% block content %}
+
+<script src="/static/jquery-1.8.3.min.js"></script>
+<script> 
+	$(document).ready(function(){
+	$("#username").change(function(){
+	var username=$("#username").val();
+	$.ajax({
+	url:"{% url 'checkusername' %}",
+	data:{'username':username},
+	success:function(data){
+	if(data.valid=="exist")
+	{
+		alert("username already exist")
+		$("#username").val();
+}	
+}
+})	
+})		
+		
+})
+
+
+
+
+
+</script>
+<script type="text/javascript">
+	function validation()
+	{
+		var alpha=/^[A-Z a-z]+$/;
+		var num=/^[0-9]+$/;
+		
+		var name=document.getElementById('name')
+		var address=document.getElementById('address')
+		var dob=document.getElementById('dob')
+		var gender=document.myform.gender;
+		var country=document.getElementById('country')
+		var username=document.getElementById('username')
+		var password=document.getElementById('password')
+			
+		if(name.value.length==0)
+			{
+			alert("Enter valid name")
+			return false;
+			}
+		else if(!name.value.match(alpha))
+			{
+			alert("invalid name")
+			name.focus();
+			return false;
+			}
+		
+		else if(address.value.length==0)
+			{
+			alert("Enter valid address")
+			return false;
+			}
+		else if(!address.value.match(alpha))
+			{
+			alert("invalid address")
+			address.focus();
+			return false;
+			}
+		
+		else if(dob.value.length==0)
+			{
+			alert("enter valid dob")
+			return false;
+			}
+		
+		else if(gender[0].checked==false && gender[1].checked==false)
+			{
+			alert("choose gender")
+			gender.focus();
+			return false;
+			}
+		else if(country.value.length==0)
+			{
+			alert("select the country")
+			country.focus();
+			return false;
+			}
+		
+		else if(phonenumber.value.length==0)
+			{
+			alert("enter phonenumber")
+			return false;
+			}
+		else if(!phonenumber.value.match(num))
+			{
+			alert("invalid number")
+			phonenumber.focus();
+			return false;
+			}
+		
+		else if(username.value.length==0)
+			{
+			alert(" enter username")
+			return false;
+			}
+		
+		
+		else if(password.value.length==0)
+			{
+			alert("enter valid password")
+			password.focus();
+			return false;
+		}
+		else
+		{
+			return true;
+		}}
+</script>
+
+
+<form method='post' action="{% url 'sellerAction' %}" name="myform">
+			{% csrf_token %}
+			<section class="vh-100 gradient-custom">
+	  <div class="container py-5 h-100">
+ 	   <div class="row justify-content-center align-items-center h-100">
+   	   <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+            <form>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <input type="text" id="name" name='name' class="form-control form-control-lg" />
+                    <label class="form-label" ">Name</label>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <input type="text" id="address" name='address' class="form-control form-control-lg" />
+                    <label class="form-label" for="lastName">Address</label>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                  <div class="form-outline datepicker w-100">
+                    <input type="date" name='dob' class="form-control form-control-lg" id="dob" />
+                    <label for="birthdayDate" class="form-label">Birthday</label>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <h6 class="mb-2 pb-1">Gender: </h6>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="gender"
+                      value="option1" checked />
+                    <label class="form-check-label" for="femaleGender">Female</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="gender"
+                      value="option2" />
+                    <label class="form-check-label" for="maleGender">Male</label>
+                  </div>
+
+                  
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input type="username" id="username" name='username' class="form-control form-control-lg" />
+                    <label class="form-label" for="emailAddress">Username</label>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input type="text" id="password" name='password' class="form-control form-control-lg" />
+                    <label class="form-label" for="phoneNumber">Password</label>
+                  </div>
+
+                </div>
+		<div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <select name='country' id='country' class="select form-control-lg">
+                    <option value="1" disabled>Choose option</option>
+                    <option value='India'>India</option>
+		<option value='china'>China</option>
+                  </select>
+                  <label class="form-label select-label">Choose Country</label>
+                    
+                  </div>
+
+                </div>
+                
+              
+
+              
+		
+
+                
+
+              <div class="mt-4 pt-2">
+                <input type='submit' value="register" onclick="return validation()">
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</form>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+{% endblock %}
+
+
+
+
+
+
+<html>
+<script src="/static/jquery-1.8.3.min.js"></script>
+<script>
+	$(document).ready(function(){
+	$("#username").change(function(){
+	var username=$("#username").val();
+	$.ajax({
+	url:"{% url 'checkusername' %}",
+	data:{'username':username},
+	success:function(data){
+	if(data.valid=="exist")
+	{
+		alert("username already exist")
+		$("#username").val();
+}	
+}	
+})	
+})		
+})
+</script>
+
+
+<script type="text/javascript">
+	function validation()
+	{
+		var alpha=/^[A-Z a-z]+$/;
+		var num=/^[0-9]+$/;
+		
+		var name=document.getElementById("name")
+		var address=document.getElementById('address')
+		var dob=document.getElementById('date')
+		var gender=document.myform.gender;
+		var country=document.getElementById('country')
+		var username=document.getElementById('username')
+		var password=document.getElementById('password')
+		
+		if(name.value.length==0)
+			{
+			alert("Enter valid name")
+			return false;
+			}
+		else if(!name.value.match(alpha))
+			{
+			alert("Inavalid name")
+			name.focus();
+			return false;
+			}
+		else if(address.value.length==0)
+			{
+			alert("Enter valid address")
+			address.focus();
+			return false;
+			}
+		else if(dob.value.length==0)
+			{
+			alert("Enter valid dob")
+			return false;
+			}
+		else if(gender[0].checked==false && gender[1].checked==false)
+			{
+			alert("choose gender")
+			return false;
+			}
+		else if(country.value.length==0)
+			{
+			alert("select country")
+			return false;
+			}
+		else if(username.value.length==0)
+			{
+			alert("enter valid username")
+			return false;
+			}
+		else if(password.value.length==0)
+			{
+			alert("ENter password")
+			return false;
+			}		
+		
+
+
+
+
+
+		else
+		{
+			return true;
+		}}
+
+
+		</script>
+
+
+
+
+
+
+
+	<body>
+		<form method='post' action="{% url 'sellerAction' %}" enctype="multipart/form-data" name="myform">
+			{% csrf_token %}
+			<table>
+				<tr>
+					<td>Name</td>
+					<td><input type='text' name='name' id='name'></td>
+				</tr>
+				<tr>
+					<td>Address</td>
+					<td><textarea name='address',rows='4' coloumn='5' id='address'></textarea></td>
+				</tr>
+				<tr>
+					<td>DOB</td>
+					<td><input type='date' name='dob' id='date'></td>
+				</tr>
+				<tr>
+					<td>Gender</td>
+					<td><input type='radio' name='gender' value='male'>Male
+					<input type='radio' name='gender' value='female'>Female </td>
+				</tr>
+				<tr>
+					<td>Country</td>
+					<td><select name='country' id='country'>
+					<option value=''>--select--</option>
+					<option value='India'>India</option>
+					<option value='china'>China</option>
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Upload<td>
+					<td><input type='file' name='file'></td>
+				</tr>
+				<tr>
+					<td>Username</td>
+					<td><input type='username' name='username' id='username'></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td><input type='password' name='password' id='password'></td>
+				</tr>
+				
+				<td></td>
+				<td><input type='submit' value="register" onclick="return validation()"></td>
+			</table>
+		</form>
+	</body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+</html>

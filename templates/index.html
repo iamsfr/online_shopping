@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+{% endblock %}
+ 
+<html>
+	<body>
+		<li><a href="{% url 'login' %}">Login</li>
+		<li><a href="{% url 'buyerregistration' %}">Buyer Registeration</li>
+		<li><a href="{% url 'sellerregistration' %}">Seller Registration</li>
+		
+	</body>
+
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+</html>

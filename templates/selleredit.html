@@ -1,0 +1,127 @@
+{% extends 'bootstrap.html' %}
+{% block content %}
+
+
+
+<form method='post' action="{% url 'updateAction' %}">
+			{% csrf_token%}
+			{% for v in viewer %}
+			<input type='hidden' name='id' value="{{v.id}}">
+
+		<div class="container mt-5">
+  	 	 <div class="row d-flex justify-content-center">
+    	  	  <div class="col-md-6">
+    	   	    <div class="card px-5 py-5" id="form1">
+        	        <div class="form-data" v-if="!submitted">
+     	 	              <div class="forms-inputs mb-4 text-center"> <span><h2>Edit</h2></span>
+                        
+                    </div>
+                   
+			<div class="form-floating mb-3">
+  	<input type="text" name='productname'  class="form-control" value="{{v.product_name}}" >
+  	<label for="floatingInput">Product Name</label>
+		</div>
+
+		<div class="form-floating mb-3">
+  	<input type="text" name='stock'  class="form-control" value="{{v.stock}}" >
+  	<label for="floatingInput">Stock</label>
+		</div>
+
+		<div class="form-floating mb-3">
+  	<input type="file" name='file'  class="form-control" value="{{v.file}}" >
+	<img src="{{v.file.url}}" height='100px' width='100px' alt='no pic'>
+  	
+		</div>
+
+	<div class="form-floating mb-3">
+  	<input type="text" name='details' id='details' class="form-control" value="{{v.details}}" >
+  	<label for="floatingInput">Details</label>
+		</div>
+
+	<div class="form-floating mb-3">
+  	<input type="text" name='price' id='price' class="form-control" value="{{v.price}}" >
+  	<label for="floatingInput">Price</label>
+		</div>
+		<div class="form-floating mb-3">
+		<select name="categoryname" class="form-control">
+				<option value="{{v.categoryid.id}}">{{v.categoryid.category_name}}</option>
+				{% for v in data %}
+				<option value= "{{v.id}}">
+				{{v.category_name}}</option>
+				{% endfor %}
+				
+				</select>
+			</div>
+                   
+			<div class="mb-3  text-center"><button type="submit" value='submit' onclick="return validation()" class="btn btn-primary btn-rounded">Submit</button></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</form>
+
+
+{% endblock %}
+
+
+
+<html>
+	<body>
+		<form method='post' action="{% url 'updateAction' %}">
+			{% csrf_token%}
+			{% for v in viewer %}
+			<input type='hidden' name='id' value="{{v.id}}">
+			<table> 
+				<tr>
+				<td>Product Name</td>
+				<td><input type='text' name='productname' value="{{v.product_name}}">
+				</tr>
+			
+				<tr>
+				<td>Stock</td>
+				<td><input type='text' name='stock' value="{{v.stock}}"></td>
+				</tr>
+	
+				<tr>
+				<td>File</td>
+				<td><img src="{{v.file.url}}" height='100px' width='100px' alt='no pic'>
+				<input type='file' name='file' value="{{v.file.url}}"></td>
+				</tr>
+			
+				<tr>
+				<td>details</td>
+				<td><input type='text' name='details' value="{{v.details}}"></td>
+				</tr>
+
+				<tr>
+				<td>Price</td>
+				<td><input type='text' name='price' value="{{v.price}}"></td>
+				</tr>
+
+				<tr>
+				<td>Category Id</td>
+				<td><select name="categoryname">
+				<option value="{{v.categoryid.id}}">{{v.categoryid.category_name}}</option>
+				{% for v in data %}
+				<option value= "{{v.id}}">
+				{{v.category_name}}</option>
+				{% endfor %}
+				</td>
+				</select>
+				</tr>
+			
+				<tr>
+				<td></td>
+				
+				<td><input type='submit' value='update' name='btnsubmit'></td>
+				</tr>
+			{% endfor %}
+			</table>
+		</form>
+	</body>
+
+
+</html>

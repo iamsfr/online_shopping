@@ -1,0 +1,364 @@
+{% extends 'bootstrap.html' %}
+
+{% block content %}
+<script type="text/javascript">
+	function validation()
+	{
+		var alpha=/^[A-Z a-z]+$/;
+		var num=/^[0-9]+$/;
+		
+		var name=document.getElementById("name")
+		var address=document.getElementById('address')
+		var dob=document.getElementById('dob')
+		var gender=document.myform.gender;
+		var phonenumber=document.getElementById('phonenumber')
+		var country=document.getElementById('country')
+		var username=document.getElementById('username')
+		var password=document.getElementById('password')
+		
+		if(name.value.length==0)
+			{
+			alert("Enter valid name")
+			return false;
+			}
+		else if(!name.value.match(alpha))
+			{
+			alert("Inavalid name")
+			name.focus();
+			return false;
+			}
+		else if(address.value.length==0)
+			{
+			alert("Enter valid address")
+			address.focus();
+			return false;
+			}
+		else if(dob.value.length==0)
+			{
+			alert("Enter valid dob")
+			return false;
+			}
+		else if(gender[0].checked==false && gender[1].checked==false)
+			{
+			alert("choose gender")
+			return false;
+			}
+		else if(country.value.length==0)
+			{
+			alert("select country")
+			return false;
+			}
+		else if(phonenumber.value.length==0)
+			{
+			alert("enter valid phonenumber")
+			return false;
+			}
+		else if(username.value.length==0)
+			{
+			alert("enter valid username")
+			return false;
+			}
+		else if(password.value.length==0)
+			{
+			alert("ENter password")
+			return false;
+			}		
+		
+
+
+
+
+
+		else
+		{
+			return true;
+		}}
+
+
+</script>
+
+
+	<form method='post' action="{% url 'buyerupdateAction' %}" name="myform">
+		{% csrf_token %}
+		{% for v in data %}
+		<input type="hidden" name="id" value="{{v.id}}">
+	<section class="vh-100 bg-image gradient-custom secondary-link bg-info" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+            height: 100vh">>
+	  
+     
+
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+            <form>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <input type="text" id="name" name='name' value="{{v.name}}" class="form-control form-control-lg" />
+                    <label class="form-label" >Name</label>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <input type="text"name='address' id='address' value="{{v.address}}" class="form-control form-control-lg" />
+                    <label class="form-label" for="lastName">Address</label>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+
+                  <div class="form-outline datepicker w-100">
+                    <input type="text" name='dob' id='dob' value="{{v.dob}}" class="form-control form-control-lg" id="birthdayDate" />
+                    <label for="birthdayDate" class="form-label">Birthday</label>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <h6 class="mb-2 pb-1">Gender: </h6>
+		{% if v.gender == "male" %}
+		<input type='radio' name='gender' value='male' checked=true>male
+			<input type='radio' name='gender' value='female'>female
+			{% else %}
+			<td><input type='radio' name='gender' value='male'>male
+			<input type='radio' name='gender' value='female' checked=true>female</td>
+			{% endif %}
+		
+               </div>
+              </div>
+
+             <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input type="text" name='phonenumber' id='phonenumber' value="{{v.phonenumber}}" class="form-control form-control-lg" />
+                    <label class="form-label" for="emailAddress">Phone</label>
+                  </div>
+
+                </div>
+		
+		<div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+			<select name='country' id='country' class="select form-control-lg">
+                    <option value="1" disabled>Country</option>
+                    <option value="{{v.country}}">India</option>
+                    <option value="{{v.country}}">China</option>
+                    
+                  </select>
+                  <label class="form-label select-label">Country</label>
+                  </div>
+
+                </div>
+              </div>
+
+		 <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+
+                  <div class="form-outline">
+                    <input type="text" name='username' value="{{v.username}}" class="form-control form-control-lg" />
+                    <label class="form-label" for="emailAddress">Username</label>
+                  </div>
+
+                </div>
+		
+                <div class="col-md-6 mb-4 pb-2">
+
+                  
+
+                  <div class="form-outline">
+                    <input type="text"name='password' value="{{v.password}}" class="form-control form-control-lg" />
+                    <label class="form-label">Password</label>
+                  </div>
+
+                </div>
+              </div>
+		
+                
+
+              
+
+              <div class="mt-4 pt-2">
+                <input type='submit' value='update' name='btnsubmit' onclick="return validation()">
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+	{% endfor %}
+</form>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+
+{% endblock %}
+
+<html>
+
+<script type="text/javascript">
+	function validation()
+	{
+		var alpha=/^[A-Z a-z]+$/;
+		var num=/^[0-9]+$/;
+		
+		var name=document.getElementById("name")
+		var address=document.getElementById('address')
+		var dob=document.getElementById('dob')
+		var gender=document.myform.gender;
+		var phonenumber=document.getElementById('phonenumber')
+		var country=document.getElementById('country')
+		var username=document.getElementById('username')
+		var password=document.getElementById('password')
+		
+		if(name.value.length==0)
+			{
+			alert("Enter valid name")
+			return false;
+			}
+		else if(!name.value.match(alpha))
+			{
+			alert("Inavalid name")
+			name.focus();
+			return false;
+			}
+		else if(address.value.length==0)
+			{
+			alert("Enter valid address")
+			address.focus();
+			return false;
+			}
+		else if(dob.value.length==0)
+			{
+			alert("Enter valid dob")
+			return false;
+			}
+		else if(gender[0].checked==false && gender[1].checked==false)
+			{
+			alert("choose gender")
+			return false;
+			}
+		else if(country.value.length==0)
+			{
+			alert("select country")
+			return false;
+			}
+		else if(phonenumber.value.length==0)
+			{
+			alert("enter valid phonenumber")
+			return false;
+			}
+		else if(username.value.length==0)
+			{
+			alert("enter valid username")
+			return false;
+			}
+		else if(password.value.length==0)
+			{
+			alert("ENter password")
+			return false;
+			}		
+		
+
+
+
+
+
+		else
+		{
+			return true;
+		}}
+
+
+</script>
+
+
+
+
+
+
+	
+	<body>
+	<form method='post' action="{% url 'buyerupdateAction' %}" name="myform">
+		{% csrf_token %}
+		{% for v in data %}
+		<input type="hidden" name="id" value="{{v.id}}">
+	<table>
+			<tr>
+			<td>Name</td>
+			<td><input type="text" name="name" id="name" value="{{v.name}}"></td>
+			</tr>
+
+			<tr>
+			<td>Address</td>
+			<td><textarea name="address" row="4" id="address" columns="5">{{v.address}}</textarea></td>
+			</tr>
+
+			<td>DOB</td>
+			<td><input type="date" name="dob" id="dob" value="{{v.dob}}"></td>
+			</tr>
+			<tr>
+			<td>Gender</td>
+			{% if v.gender == "male" %}
+			<td><input type='radio' name='gender' id="gender" value='male' checked=true>male
+			<input type='radio' name='gender' value='female'>female</td>
+			{% else %}
+			<td><input type='radio' name='gender' id="gender" value='male'>male
+			<input type='radio' name='gender' value='female' checked=true>female</td>
+			{% endif %}
+			</tr>
+			<tr>
+			<td>Phonenumber</td>
+			<td><input type="text" name="phonenumber" id="phonenumber" value="{{v.phonenumber}}"></td>
+
+			<tr>
+			<td>Country</td>
+			<td><select name='country' id="country">
+			<option value="{{v.country}}">India</option>
+			<option value="{{v.country}}">China</option>
+			</select>
+			</td>
+			</tr>
+			<tr>
+			<td>Username</td>
+			<td><input type='text' name='username' id="username" value="{{v.username}}"></td>
+			</tr>
+			<tr>
+			<td>Password</td>
+			<td><input type='password' name='password' id="password" value="{{v.password}}"></td>
+			</tr>
+			
+			<td><input type='submit' value='update' name='btnsubmit' onclick="return validation()"></td>
+			</tr>
+	</table>
+		{% endfor %}
+		
+		</form>
+
+
+	</body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+</html>

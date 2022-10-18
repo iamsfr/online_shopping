@@ -1,0 +1,42 @@
+<html>
+	<body>
+	<table>
+		<tr>
+			<th>Product Name</th>
+			<th>Buyer Name</th>
+			<th>File</th>
+			<th>Quantity</th>
+			<th>Total Price</th>
+			<th>Phone</th>
+			<th>Shipping</th>
+			<th>Address</th>
+			<th>Status</th>
+			<th>Date</th>
+			<th>Time</th>
+		</tr>
+		{% for v in orderview %}
+		<tr>
+			<td>{{v.productid.product_name}}</td>
+			<td>{{v.buyerid.name}}</td>
+			<td><img src="{{v.productid.file.url}}" height='100px' width='100px'></td>
+			<td>{{v.quantity}}</td>
+			<td>{{v.totalprice}}</td>
+			<td>{{v.phone}}</td>
+			<td>{{v.shipping}}</td>
+			<td>{{v.address}}</td>
+			<td>{{v.status}}</td>
+			<td>{{v.date}}</td>
+			<td>{{v.time}}</td>
+			<td><a href="{% url 'orderapproved' v.id %}">Approved</td>
+			<td><a href="{% url 'orderreject' v.id %}">Reject</td>
+			{% if v.status == 'approved'%}
+			<td><a href="{% url 'trackingid' v.id %}">Order Tracking</a></td>
+			{% endif %}
+			{% if v.status == 'reject'%}
+			<td><a href="{% url 'confirmcancel' v.id %}">Confirm cancel</a></td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+	</table>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends 'bootstrap.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation()
+	{
+		var alpha=/^[A-Z a-z]+$/;
+		var num=/^[0-9]+$/;
+		
+		var name=document.getElementById("name")
+		if(name.value.length==0)
+			{
+			alert("Enter valid name")
+			return false;
+			}
+		else
+			{
+			return true;
+			}}
+</script>
+
+
+<form method='post' action="{% url 'addcategoryAction' %}">
+			{% csrf_token %}
+
+		<div class="container mt-5">
+  	 	 <div class="row d-flex justify-content-center">
+    	  	  <div class="col-md-6">
+    	   	    <div class="card px-5 py-5" id="form1">
+        	        <div class="form-data" v-if="!submitted">
+     	 	              <div class="forms-inputs mb-4 text-center"> <span><h2>Search Item</h2></span>
+                        
+                    </div>
+                   
+			<div class="form-floating mb-3">
+  	<input type="text" name='name' id='name' class="form-control"  placeholder="name@example.com">
+  	<label for="floatingInput">Category Name</label>
+		</div>
+
+		
+                   
+			<div class="mb-3  text-center"><button type="submit" value='Add' onclick="return validation()" class="btn btn-primary btn-rounded">Add</button></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif%}
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends 'loginbase.html '%}
+{% block content %}
+<script type="text/javascript">
+	function validation()
+	{
+		var alpha=/^[A-Z a-z]+$/;
+		var num=/^[0-9]+$/;
+		
+		var username=document.getElementById("username")
+		var password=document.getElementById('password')
+		if(username.value.length==0)
+			{
+			alert("Enter valid username")
+			return false;
+			}
+		else if(password.value.length==0)
+			{
+			alert("Enter valid password")
+			return false;
+			}
+		else
+			{
+			return true;
+			}}
+</script>
+
+
+
+`
+
+
+
+<section class='login' id='login'>
+<form method='post' action="{% url 'loginAction' %}">
+			{% csrf_token %}
+  <div class='head'>
+  <h1 class='company'>E Shop</h1>
+  </div>
+  <p class='msg'>Welcome back</p>
+  <div class='form'>
+    <form>
+  <input type="text" placeholder='Username' name='username' class='text' id='username' required><br>
+  <input type="password" id='password' name='password' placeholder='••••••••••••••' class='password'><br>
+  <input type="submit" class="btn-login" value="Login" onclick="return validation()">
+  <a href="{% url 'forgotpassword' %}" class='forgot'>Forgot?</a>
+    </form>
+  </div>
+</form>
+</section>
+<footer>
+  <p>Made with <span class='heart'>&hearts;</span> IamSfr(<a href='https://github.com/pxntxs'>@pxntxs</a>)</p>
+  <p>Gradient: <a href='https://uigradients.com/#Turquoiseflow'>https://uigradients.com/#Turquoiseflow</a></p>
+</footer>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+
+{% endblock %}
+
+
+
+<html>
+<script type="text/javascript">
+	function validation()
+	{
+		var alpha=/^[A-Z a-z]+$/;
+		var num=/^[0-9]+$/;
+		
+		var username=document.getElementById("username")
+		var password=document.getElementById('password')
+		if(username.value.length==0)
+			{
+			alert("Enter valid username")
+			return false;
+			}
+		else if(password.value.length==0)
+			{
+			alert("Enter valid password")
+			return false;
+			}
+		else
+			{
+			return true;
+			}}
+</script>
+
+
+
+	<body>
+		<form method='post' action="{% url 'loginAction' %}">
+			{% csrf_token %}
+			<table>
+				<tr>
+					<td>Username  </td>
+					<td><input type="text" name="username" id="username"></td>
+				</tr>
+				<tr>
+					<td>Password  </td>
+					<td><input type="password" name="password" id="password"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Login" onclick="return validation()"></td>
+				</tr>
+				<tr>
+				<td></td>
+				<td><a href="{% url 'forgotpassword' %}">Forgot Password</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+
+</html>

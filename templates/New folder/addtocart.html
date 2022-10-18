@@ -1,0 +1,64 @@
+<html>
+<script src="/static/jquery-1.8.3.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$("#quantity").change(function(){
+	var quantity=parseInt($("#quantity").val());
+	var price=parseInt($("#price").text());
+	var totalprice=quantity*price;
+	$("#totalprice").val(totalprice)
+	
+	})
+	})
+	</script>
+	<body>
+		<form method='post' action="{% url 'cartAction' %}">
+			{% csrf_token %}
+		{% for v in buyer %}
+		<input type='hidden' name='id' value='{{v.id}}'>
+		
+		<table>
+			
+			<tr>
+			<td>Product name</td>
+			<td>{{v.product_name}}</td>
+			</tr>
+
+			<tr>
+			<td>File</td>
+			<td><img src="{{v.file.url}}" height='150px' width='250px' alt='no pic'></td>
+			</tr>
+
+			<tr>
+			<td>price</td>
+			<td><span id='price'>{{v.price}}</span></td>
+			</tr>
+
+			<tr>
+			<td>ShippingAddress</td>
+			<td><textarea name='shipping' row='4' column='5' id='shipping'></textarea></td>
+			</tr>
+
+			<tr>
+			<td>Quantity</td>
+			<td><input type='text' name='quantity' id='quantity'></td>
+			</tr>
+
+			<tr>
+			<td>Phone</td>
+			<td><input type='text' name='phone'></td>
+			</tr>
+
+			<td>Total price</td>
+			<td><input type='text' name='totalprice' id='totalprice' readonly='true'></td>
+			</tr>
+
+			<td></td>
+			<td><input type='submit' value='submit'></td>
+			</tr>
+
+		</table>
+		{% endfor %}
+		</form>
+	</body>
+</html>

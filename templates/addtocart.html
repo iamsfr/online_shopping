@@ -1,0 +1,78 @@
+{% extends 'bootstrap.html' %}
+{% block content %}
+<script src="/static/jquery-1.8.3.min.js"></script>
+	<script>
+	$(document).ready(function(){
+	$("#quantity").change(function(){
+	var quantity=parseInt($("#quantity").val());
+	var price=parseInt($("#price").text());
+	var totalprice=quantity*price;
+	$("#totalprice").val(totalprice)
+	
+	})
+	})
+	</script>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="mb-3">
+                <h3>Add to Cart</h3>
+            </div>
+	<form method='post' action="{% url 'cartAction' %}">
+			{% csrf_token %}
+		{% for v in buyer %}
+		<input type='hidden' name='id' value='{{v.id}}'>
+            <form accept="" class="shadow p-4">                  
+                <div class="mb-3">
+                    <label >Product Name</label>
+                    <input type="text" class="form-control" value="{{v.product_name}}">
+                </div>
+
+                <div class="mb-3">
+                    <label >File</label>
+                    <img src="{{v.file.url}}" height='200px' width='200px'  class="form-control" alt='no pic' >
+                </div>
+
+		<div class="mb-3">
+                    <label >Price</label>
+                    <span id='price' class="form-control">{{v.price}}</span>
+                </div>
+		<div class="mb-3">
+                    <label >Shipping Address</label>
+                    <textarea name='shipping' class="form-control" id='shipping'></textarea>
+                </div>
+
+		<div class="mb-3">
+                    <label >Quantity</label>
+                    <input type="text" id='quantity' class="form-control" name='quantity'>
+                </div>
+
+		<div class="mb-3">
+                    <label >Phone</label>
+                    <input type="text" id='qphone' class="form-control" name='phone'>
+                </div>
+		
+		<div class="mb-3">
+                    <label >Total Price</label>
+                    <input type="text" id='totalprice' class="form-control" name='totalprice' readonly='true'>
+                </div>
+
+               
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+
+         
+
+                
+                
+            </form>
+	{% endfor %}
+	</form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

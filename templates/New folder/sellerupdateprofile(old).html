@@ -1,0 +1,67 @@
+<html>
+	<body>
+		<form method='post' action="{% url 'sellerupdateAction' %}">
+			{% csrf_token %}
+			{% for v in data %}
+			<input type="hidden" name="id" value="{{v.id}}">
+		 <table>
+			<tr>
+			<td>Name</td>
+			<td><input type="text" name="name" value="{{v.name}}"></td>
+			</tr>
+
+			<tr>
+			<td>Address</td>
+			<td><textarea name="address" row="4" columns="5">{{v.address}}</textarea></td>
+			</tr>
+
+			<td>DOB</td>
+			<td><input type="date" name="dob" value="{{v.dob}}"></td>
+			</tr>
+			<tr>
+			<td>Gender</td>
+			{% if v.gender == "male" %}
+			<td><input type='radio' name='gender' value='male' checked=true>male
+			<input type='radio' name='gender' value='female'>female</td>
+			{% else %}
+			<td><input type='radio' name='gender' value='male'>male
+			<input type='radio' name='gender' value='female' checked=true>female</td>
+			{% endif %}
+			</tr>
+			<tr>
+			<td>Country</td>
+			<td><select name='country'>
+			<option value="{{v.country}}">India</option>
+			<option value="{{v.country}}">China</option>
+			</select>
+			</td>
+			</tr>
+			<tr>
+			<td>Username</td>
+			<td><input type='text' name='username' value="{{v.username}}"></td>
+			</tr>
+			<tr>
+			<td>Password</td>
+			<td><input type='password' name='password' value="{{v.password}}"></td>
+			</tr>
+			<tr>
+				<td>file</td>
+				<td><img src="{{v.file.url}}" height='100px' width='100px'></td>
+				<td><input type='file' name='file' ></td>
+			</tr>
+			<tr>
+			<td><input type='submit' value='update' name='btnsubmit'></td>
+			</tr>
+		</table>
+			{% endfor %}
+		
+		</form>
+	</body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+			alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+</html>
